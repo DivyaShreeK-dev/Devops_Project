@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Assignment Submission System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <section id="auth-panel" class="auth-panel">
+      <div class="brand-mark">
+        <p class="eyebrow">Campus Workflow Suite</p>
+        <h1>Online Assignment Submission System</h1>
+        <p class="lead">A rebuilt responsive interface for students, faculty, and admins to manage assignments, submissions, grading, notifications, and reporting in one place.</p>
+        <div class="stat-strip">
+          <article><strong>24</strong><span>Assignments live</span></article>
+          <article><strong>92%</strong><span>On-time submissions</span></article>
+          <article><strong>11</strong><span>Departments active</span></article>
+        </div>
+      </div>
+
+      <div class="auth-card card">
+        <div class="auth-tabs">
+          <button class="tab-button active" data-auth-tab="login">Login</button>
+          <button class="tab-button" data-auth-tab="signup">Sign Up</button>
+        </div>
+
+        <form id="login-form" class="auth-form active">
+          <label><span>Email</span><input type="email" id="login-email" value="student@campus.edu" required></label>
+          <label><span>Password</span><input type="password" id="login-password" value="password123" required></label>
+          <label>
+            <span>Role</span>
+            <select id="login-role">
+              <option value="student">Student</option>
+              <option value="faculty">Faculty</option>
+              <option value="admin">Admin</option>
+            </select>
+          </label>
+          <button type="submit" class="primary-button">Enter Workspace</button>
+          <p class="helper-text">Demo-ready. Switch the role to preview each dashboard instantly.</p>
+        </form>
+
+        <form id="signup-form" class="auth-form">
+          <label><span>Full Name</span><input type="text" id="signup-name" placeholder="Alex Johnson" required></label>
+          <label><span>Email</span><input type="email" id="signup-email" placeholder="alex@campus.edu" required></label>
+          <label><span>Password</span><input type="password" id="signup-password" placeholder="Create a password" required></label>
+          <label>
+            <span>Role</span>
+            <select id="signup-role">
+              <option value="student">Student</option>
+              <option value="faculty">Faculty</option>
+              <option value="admin">Admin</option>
+            </select>
+          </label>
+          <button type="submit" class="primary-button">Create Account</button>
+        </form>
+      </div>
+    </section>
+
+    <main id="app" class="app hidden">
+      <aside class="sidebar">
+        <div>
+          <p class="eyebrow">OASS</p>
+          <h2>Command Center</h2>
+          <p id="current-role-label" class="muted-text">Student workspace</p>
+        </div>
+        <nav class="side-nav">
+          <button class="nav-link active" data-section="overview">Overview</button>
+          <button class="nav-link" data-section="assignments">Assignments</button>
+          <button class="nav-link" data-section="submissions">Submissions</button>
+          <button class="nav-link" data-section="grading">Grading</button>
+          <button class="nav-link" data-section="admin">Admin</button>
+          <button class="nav-link" data-section="reports">Reports</button>
+          <button class="nav-link" data-section="settings">Settings</button>
+        </nav>
+        <button id="logout-button" class="ghost-button">Log Out</button>
+      </aside>
+
+      <section class="content">
+        <header class="topbar card">
+          <div>
+            <p class="eyebrow">Unified dashboard</p>
+            <h3 id="welcome-title">Welcome back</h3>
+            <p id="welcome-copy" class="muted-text">Track assignments, submissions, grades, and campus operations.</p>
+          </div>
+          <div class="topbar-actions">
+            <label class="search-box"><span>Search</span><input type="search" id="global-search" placeholder="Course, subject, status..."></label>
+            <div class="profile-pill"><strong id="profile-name">Ananya Rao</strong><span id="profile-role">Student</span></div>
+          </div>
+        </header>
+
+        <section id="overview-section" class="section-panel active">
+          <div class="hero-grid">
+            <article class="card hero-card">
+              <p class="eyebrow">Live pulse</p>
+              <h3>Stay ahead of every deadline, feedback cycle, and admin update.</h3>
+              <p class="muted-text">This static build uses realistic mock data so we can validate the full user experience before backend integration.</p>
+              <div id="overview-highlights" class="metric-grid"></div>
+            </article>
+            <article class="card">
+              <div class="section-heading"><div><p class="eyebrow">Notifications</p><h3>Recent alerts</h3></div></div>
+              <div id="notifications-list" class="stack-list"></div>
+            </article>
+          </div>
+
+          <div class="grid-two">
+            <article class="card">
+              <div class="section-heading"><div><p class="eyebrow">Courses</p><h3>Current courses and deadlines</h3></div></div>
+              <div id="courses-list" class="stack-list"></div>
+            </article>
+            <article class="card">
+              <div class="section-heading"><div><p class="eyebrow">Upcoming work</p><h3>Priority assignments</h3></div></div>
+              <div id="deadline-list" class="stack-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="assignments-section" class="section-panel">
+          <div class="grid-two">
+            <article class="card">
+              <div class="section-heading"><div><p class="eyebrow">Assignment upload</p><h3>Submit your work</h3></div></div>
+              <form id="submission-form" class="feature-form">
+                <label><span>Assignment</span><select id="assignment-select"></select></label>
+                <label><span>File name</span><input type="text" id="file-name" placeholder="oop-lab-report.pdf" required></label>
+                <label><span>Comments</span><textarea id="submission-comment" rows="4" placeholder="Add context for your submission"></textarea></label>
+                <button type="submit" class="primary-button">Upload Assignment</button>
+              </form>
+            </article>
+
+            <article class="card faculty-only admin-only-shared" id="assignment-manager-card">
+              <div class="section-heading"><div><p class="eyebrow">Faculty tools</p><h3>Create or update assignments</h3></div></div>
+              <form id="assignment-form" class="feature-form">
+                <label><span>Title</span><input type="text" id="assignment-title" placeholder="Database Mini Project" required></label>
+                <label><span>Course</span><input type="text" id="assignment-course" placeholder="CS301 - DBMS" required></label>
+                <label><span>Deadline</span><input type="datetime-local" id="assignment-deadline" required></label>
+                <label><span>Description</span><textarea id="assignment-description" rows="4" placeholder="Share the assignment brief"></textarea></label>
+                <button type="submit" class="primary-button">Save Assignment</button>
+              </form>
+            </article>
+          </div>
+          <article class="card">
+            <div class="section-heading"><div><p class="eyebrow">Assignments</p><h3>Browse active work</h3></div></div>
+            <div id="assignment-list" class="responsive-table"></div>
+          </article>
+        </section>
+
+        <section id="submissions-section" class="section-panel">
+          <article class="card">
+            <div class="section-heading"><div><p class="eyebrow">Submission history</p><h3>Track status, timestamps, and files</h3></div></div>
+            <div id="submission-history" class="responsive-table"></div>
+          </article>
+          <article class="card faculty-only">
+            <div class="section-heading"><div><p class="eyebrow">Faculty review queue</p><h3>Student submissions by assignment</h3></div></div>
+            <div id="faculty-submissions" class="responsive-table"></div>
+          </article>
+        </section>
+
+        <section id="grading-section" class="section-panel">
+          <div class="grid-two">
+            <article class="card faculty-only">
+              <div class="section-heading"><div><p class="eyebrow">Grade + feedback</p><h3>Evaluate submissions</h3></div></div>
+              <form id="grading-form" class="feature-form">
+                <label><span>Submission</span><select id="grading-select"></select></label>
+                <label><span>Grade</span><input type="text" id="grade-input" placeholder="A / 92 / Pass"></label>
+                <label><span>Feedback</span><textarea id="feedback-input" rows="4" placeholder="Share strengths and revision notes"></textarea></label>
+                <button type="submit" class="primary-button">Publish Feedback</button>
+              </form>
+            </article>
+            <article class="card">
+              <div class="section-heading"><div><p class="eyebrow">Gradebook</p><h3>Visible feedback summary</h3></div></div>
+              <div id="gradebook-list" class="stack-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="admin-section" class="section-panel">
+          <div class="grid-two">
+            <article class="card admin-only">
+              <div class="section-heading"><div><p class="eyebrow">User management</p><h3>Manage users, courses, and semesters</h3></div></div>
+              <form id="admin-form" class="feature-form">
+                <label><span>User / Course</span><input type="text" id="admin-name" placeholder="Priya Nair / CS402"></label>
+                <label>
+                  <span>Category</span>
+                  <select id="admin-category">
+                    <option value="users">User</option>
+                    <option value="courses">Course</option>
+                    <option value="semesters">Semester</option>
+                  </select>
+                </label>
+                <label><span>Details</span><textarea id="admin-details" rows="4" placeholder="Department, access, dates, section..."></textarea></label>
+                <button type="submit" class="primary-button">Add Record</button>
+              </form>
+            </article>
+            <article class="card">
+              <div class="section-heading"><div><p class="eyebrow">Campus registry</p><h3>System records</h3></div></div>
+              <div id="admin-records" class="stack-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="reports-section" class="section-panel">
+          <div id="report-cards" class="metric-grid"></div>
+          <article class="card">
+            <div class="section-heading"><div><p class="eyebrow">Summary table</p><h3>Submission counts and pending load</h3></div></div>
+            <div id="report-table" class="responsive-table"></div>
+          </article>
+        </section>
+
+        <section id="settings-section" class="section-panel">
+          <div class="grid-two">
+            <article class="card">
+              <div class="section-heading"><div><p class="eyebrow">Profile</p><h3>Update account settings</h3></div></div>
+              <form id="profile-form" class="feature-form">
+                <label><span>Name</span><input type="text" id="profile-input-name"></label>
+                <label><span>Contact</span><input type="text" id="profile-input-contact"></label>
+                <label><span>Password</span><input type="password" id="profile-input-password" placeholder="New password"></label>
+                <button type="submit" class="primary-button">Save Settings</button>
+              </form>
+            </article>
+            <article class="card">
+              <div class="section-heading"><div><p class="eyebrow">Account snapshot</p><h3>Current profile information</h3></div></div>
+              <div id="profile-summary" class="stack-list"></div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
